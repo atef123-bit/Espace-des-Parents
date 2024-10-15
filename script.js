@@ -1,16 +1,19 @@
 // script.js
 document.getElementById('age-form').addEventListener('submit', function (e) {
     e.preventDefault();
+
     const dob = new Date(document.getElementById('dob').value);
     const today = new Date();
-    const age = today.getFullYear() - dob.getFullYear();
+    
+    // حساب العمر
+    let age = today.getFullYear() - dob.getFullYear();
     const monthDifference = today.getMonth() - dob.getMonth();
 
-    // Adjust age if birth date hasn't occurred yet this year
+    // تعديل العمر إذا لم يأتي تاريخ الميلاد بعد هذا العام
     if (monthDifference < 0 || (monthDifference === 0 && today.getDate() < dob.getDate())) {
         age--;
     }
 
-    // Display result
+    // عرض النتيجة
     document.getElementById('result').textContent = `You are ${age} years old.`;
 });

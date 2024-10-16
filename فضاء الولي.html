@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="ar">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>فضاء الولي</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        /* إضافة تنسيقات لزر "مرحبًا" ونموذج تسجيل الدخول */
+        .welcome-button {
+            position: absolute;
+            top: 5px;
+            right: 1px;
+            padding: px 5px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 12px;
+            cursor: pointer;
+            font-size: 12px;
+        }
+
+        /* تنسيق نموذج تسجيل الدخول */
+        .login-modal {
+            display: none;
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            padding: 20px;
+            background-color: white;
+            border: 1px solid #ccc;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+            z-index: 1000;
+            border-radius: 5px;
+        }
+
+        .login-modal input {
+            width: 100%;
+            padding: 10px;
+            margin: 10px 0;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+
+        .modal-overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            z-index: 999;
+        }
+
+        .close-button {
+            background-color: red;
+            color: white;
+            border: none;
+            padding: 10px 15px;
+            cursor: pointer;
+            border-radius: 5px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <img src="https://parent.education.tn/parent/image/entete-espace-parent.jpg" alt="فضاء الولي" class="header-image">
+            <h1><i class="fas fa-user-graduate"></i> فضاء الولي</h1>
+            <p><i class="fas fa-chalkboard-teacher"></i> القسم: <span id="className">9 أساسي 9</span></p>
+        </header>
+
+        <section class="student-info">
+            <h2><i class="fas fa-info-circle"></i> معلومات التلميذة</h2>
+            <ul>
+                <li><strong>الاسم:</strong> <span id="studentFirstName">حبيبة</span></li>
+                <li><strong>اللقب:</strong> <span id="studentLastName">عمر</span></li>
+                <li><strong></strong> <span id="className"></span></li>
+            </ul>
+        </section>
+
+        <section class="attendance-info">
+            <h2><i class="fas fa-calendar-alt"></i> معلومات الغياب</h2>
+            <ul>
+                <li><strong>عدد الغيابات:</strong> <span id="absencesCount">1</span></li>
+                <li><strong>سبب الغياب:</strong> <span id="absenceReason">التأخير</span></li>
+            </ul>
+        </section>
+
+        <section class="card-info">
+            <h2><i class="fas fa-id-card-alt"></i> معلومات البطاقات</h2>
+            <ul>
+                <li><strong>عدد بطاقات الإقصاء:</strong> <span id="exclusionCardsCount">0</span></li>
+                <li><strong>عدد بطاقات الدخول:</strong> <span id="entryCardsCount">1</span></li>
+                <li><strong>عدد بطاقات الدخول بسبب التأخير:</strong> <span id="entryCardsForDelayCount">1</span></li>
+            </ul>
+        </section>
+        
+        <!-- زر "مرحبًا" -->
+        <button class="welcome-button" id="welcomeButton">مرحبًا</button>
+        
+        <!-- نموذج تسجيل الدخول -->
+        <div class="modal-overlay" id="modalOverlay"></div>
+        <div class="login-modal" id="loginModal">
+            <h2>تسجيل الدخول</h2>
+            <label for="username">اسم المستخدم:</label>
+            <input type="text" id="username" placeholder="ادخل اسم المستخدم" required>
+            <label for="password">كلمة المرور:</label>
+            <input type="password" id="password" placeholder="ادخل كلمة المرور" required>
+            <button id="loginButton">تسجيل الدخول</button>
+            <button class="close-button" id="closeButton">إغلاق</button>
+        </div>
+    </div>
+
+    <script>
+        // جلب البيانات من localStorage وتحديث الصفحة
+        document.addEventListener('DOMContentLoaded', function() {
+            const firstName = localStorage.getItem('firstName') || 'حبيبة';
+            const lastName = localStorage.getItem('lastName') || 'عمر';
+            const absencesCount = localStorage.getItem('absencesCount') || '1';
+            const absenceReason = localStorage.getItem('absenceReason') || 'التأخير';
+            const exclusionCardsCount = localStorage.getItem('exclusionCardsCount') || '0';
+            const entryCardsCount = localStorage.getItem('entryCardsCount') || '1';
+            const entryCardsForDelayCount = localStorage.getItem('entryCardsForDelayCount') || '1';
+            const className = localStorage.getItem('className') || '9 أساسي 9';
+
+            document.getElementById('studentFirstName').textContent = firstName;
+            document.getElementById('studentLastName').textContent = lastName;
+            document.getElementById('absencesCount').textContent = absencesCount;
+            document.getElementById('absenceReason').textContent = absenceReason;
+            document.getElementById('exclusionCardsCount').textContent = exclusionCardsCount;
+            document.getElementById('entryCardsCount').textContent = entryCardsCount;
+            document.getElementById('entryCardsForDelayCount').textContent = entryCardsForDelayCount;
+            document.getElementById('className').textContent = className;
+        });
+
+        // وظيفة لإظهار نموذج تسجيل الدخول
+        document.getElementById('welcomeButton').addEventListener('click', function() {
+            document.getElementById('loginModal').style.display = 'block';
+            document.getElementById('modalOverlay').style.display = 'block';
+        });
+
+        // وظيفة لإغلاق نموذج تسجيل الدخول
+        document.getElementById('closeButton').addEventListener('click', function() {
+            document.getElementById('loginModal').style.display = 'none';
+            document.getElementById('modalOverlay').style.display = 'none';
+        });
+
+        // وظيفة لتسجيل الدخول
+        document.getElementById('loginButton').addEventListener('click', function() {
+            const username = document.getElementById('username').value;
+            const password = document.getElementById('password').value;
+
+            // تحقق من اسم المستخدم وكلمة المرور
+            if (username === '0.0.0.0' && password === '1.1.1.1') {
+                // الانتقال إلى لوحة التحكم
+                window.location.href = 'admin.html';
+            } else {
+                alert('اسم المستخدم أو كلمة المرور غير صحيحة!');
+            }
+        });
+    </script>
+</body>
+</html>

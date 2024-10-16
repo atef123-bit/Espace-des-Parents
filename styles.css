@@ -1,20 +1,141 @@
-/* styles.css */
+/* إعدادات أساسية */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Tajawal', sans-serif; /* خط عربي عصري */
+}
+
 body {
-    font-family: Arial, sans-serif;
+    background-color: #f0f0f5; /* خلفية خفيفة */
+    color: #333;
+    direction: rtl; /* الكتابة من اليمين لليسار */
+    padding: 20px;
+    transition: background-color 0.3s ease; /* انتقال سلس عند تغيير الخلفية */
 }
 
-h1 {
-    color: #1f2937; /* Gray 800 */
+.container {
+    width: 90%;
+    max-width: 800px;
+    margin: 0 auto;
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+    transition: transform 0.2s ease; /* انتقال سلس عند التفاعل */
 }
 
-label {
-    color: #374151; /* Gray 700 */
+.container:hover {
+    transform: translateY(-5px); /* رفع خفيف عند التمرير */
 }
 
-button {
-    transition: background-color 0.3s;
+/* تنسيق الهيدر */
+header {
+    background-color: #4a90e2;
+    color: #fff;
+    padding: 20px;
+    text-align: center;
+    border-radius: 10px 10px 0 0;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
-button:hover {
-    background-color: #3b82f6; /* Blue 500 */
+header h1 {
+    font-size: 28px;
+    margin-bottom: 10px;
+    transition: color 0.3s ease; /* انتقال سلس عند تغيير اللون */
+}
+
+header h1:hover {
+    color: #fff; /* تغيير اللون عند التمرير */
+}
+
+header p {
+    font-size: 16px;
+}
+
+.header-image {
+    max-width: 100%;
+    height: auto;
+    border-radius: 10px;
+}
+
+/* الأقسام */
+section {
+    margin-bottom: 20px;
+}
+
+section h2 {
+    font-size: 22px;
+    margin-bottom: 15px;
+    color: #4a90e2;
+}
+
+section ul {
+    list-style: none;
+    padding-left: 20px;
+}
+
+section ul li {
+    margin-bottom: 10px;
+    font-size: 18px;
+}
+
+/* أيقونات */
+i {
+    margin-left: 10px;
+    color: #4a90e2;
+}
+
+/* تنسيق البطاقة */
+.card-info ul, .attendance-info ul, .student-info ul {
+    padding: 15px;
+    background-color: #f9f9f9;
+    border-radius: 10px;
+    border: 1px solid #ddd;
+    transition: background-color 0.3s ease; /* انتقال سلس عند التفاعل */
+}
+
+.card-info ul:hover, .attendance-info ul:hover, .student-info ul:hover {
+    background-color: #e7f3ff; /* تغيير اللون عند التمرير */
+}
+
+/* تنسيق لوحة التحكم */
+.control-section {
+    margin-top: 20px;
+}
+
+.control-section form {
+    display: flex;
+    flex-direction: column;
+}
+
+.control-section label {
+    margin-bottom: 5px;
+}
+
+.control-section input {
+    padding: 10px;
+    margin-bottom: 15px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    transition: border-color 0.3s ease; /* انتقال سلس عند التركيز */
+}
+
+.control-section input:focus {
+    border-color: #4a90e2; /* تغيير لون الحدود عند التركيز */
+    outline: none; /* إزالة تأثير التركيز الافتراضي */
+}
+
+.control-section button {
+    padding: 10px;
+    background-color: #4a90e2;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease; /* انتقال سلس عند التفاعل */
+}
+
+.control-section button:hover {
+    background-color: #357ab8; /* تغيير اللون عند التمرير */
 }

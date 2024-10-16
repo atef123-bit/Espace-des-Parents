@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="ar">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>لوحة التحكم</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>لوحة التحكم</h1>
+        </header>
+
+        <section class="control-section">
+            <h2>تعديل معلومات التلميذة</h2>
+            <form id="updateForm">
+                <label for="firstName">الاسم:</label>
+                <input type="text" id="firstName" placeholder="ادخل الاسم" required>
+                
+                <label for="lastName">اللقب:</label>
+                <input type="text" id="lastName" placeholder="ادخل اللقب" required>
+
+                <label for="className">القسم:</label>
+                <input type="text" id="className" placeholder="ادخل القسم" required> <!-- إضافة حقل القسم -->
+
+                <label for="absencesCount">عدد الغيابات:</label>
+                <input type="number" id="absencesCount" placeholder="عدد الغيابات" required>
+
+                <label for="absenceReason">سبب الغياب:</label>
+                <input type="text" id="absenceReason" placeholder="سبب الغياب" required>
+
+                <label for="exclusionCardsCount">عدد بطاقات الإقصاء:</label>
+                <input type="number" id="exclusionCardsCount" placeholder="عدد بطاقات الإقصاء" required>
+
+                <label for="entryCardsCount">عدد بطاقات الدخول:</label>
+                <input type="number" id="entryCardsCount" placeholder="عدد بطاقات الدخول" required>
+
+                <label for="entryCardsForDelayCount">عدد بطاقات الدخول بسبب التأخير:</label>
+                <input type="number" id="entryCardsForDelayCount" placeholder="عدد بطاقات الدخول بسبب التأخير" required>
+
+                <button type="submit">تحديث المعلومات</button>
+            </form>
+        </section>
+    </div>
+
+    <script>
+        // عند تحميل الصفحة، استرداد البيانات الموجودة في localStorage
+        window.onload = function() {
+            document.getElementById('firstName').value = localStorage.getItem('firstName') || '';
+            document.getElementById('lastName').value = localStorage.getItem('lastName') || '';
+            document.getElementById('className').value = localStorage.getItem('className') || ''; // استرداد القسم
+            document.getElementById('absencesCount').value = localStorage.getItem('absencesCount') || '';
+            document.getElementById('absenceReason').value = localStorage.getItem('absenceReason') || '';
+            document.getElementById('exclusionCardsCount').value = localStorage.getItem('exclusionCardsCount') || '';
+            document.getElementById('entryCardsCount').value = localStorage.getItem('entryCardsCount') || '';
+            document.getElementById('entryCardsForDelayCount').value = localStorage.getItem('entryCardsForDelayCount') || '';
+        };
+
+        document.getElementById('updateForm').addEventListener('submit', function(e) {
+            e.preventDefault(); // منع إعادة تحميل الصفحة
+            
+            const firstName = document.getElementById('firstName').value;
+            const lastName = document.getElementById('lastName').value;
+            const className = document.getElementById('className').value; // الحصول على قيمة القسم
+            const absencesCount = document.getElementById('absencesCount').value;
+            const absenceReason = document.getElementById('absenceReason').value;
+            const exclusionCardsCount = document.getElementById('exclusionCardsCount').value;
+            const entryCardsCount = document.getElementById('entryCardsCount').value;
+            const entryCardsForDelayCount = document.getElementById('entryCardsForDelayCount').value;
+
+            // تخزين المعلومات في localStorage
+            localStorage.setItem('firstName', firstName);
+            localStorage.setItem('lastName', lastName);
+            localStorage.setItem('className', className); // تخزين القسم
+            localStorage.setItem('absencesCount', absencesCount);
+            localStorage.setItem('absenceReason', absenceReason);
+            localStorage.setItem('exclusionCardsCount', exclusionCardsCount);
+            localStorage.setItem('entryCardsCount', entryCardsCount);
+            localStorage.setItem('entryCardsForDelayCount', entryCardsForDelayCount);
+
+            alert('تم تحديث المعلومات بنجاح!');
+
+            // إعادة توجيه المستخدم إلى صفحة فضاء الولي
+            window.location.href = 'فضاء الولي.html';
+        });
+    </script>
+</body>
+</html>
